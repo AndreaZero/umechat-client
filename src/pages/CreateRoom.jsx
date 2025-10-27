@@ -37,7 +37,7 @@ const CreateRoom = () => {
     setError(null); // Clear previous errors
     
     // Connessione Socket.IO
-    const newSocket = io('http://localhost:3001', {
+    const newSocket = io('https://umechat-server.up.railway.app', {
       timeout: 5000,
       forceNew: true
     });

@@ -40,7 +40,7 @@ const Chat = () => {
     setIsHost(userIsHost || false);
 
     // Connessione Socket.IO
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io('https://umechat-server.up.railway.app');
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
