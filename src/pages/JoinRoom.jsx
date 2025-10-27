@@ -5,9 +5,11 @@ import { FaArrowLeft, FaSignInAlt, FaUser, FaKey } from 'react-icons/fa';
 import { io } from 'socket.io-client';
 import ErrorNotification from '../components/ErrorNotification';
 import { API_URL } from '../config/api';
+import useServerStatus from '../hooks/useServerStatus';
 
 const JoinRoom = () => {
   const navigate = useNavigate();
+  const { isServerDown } = useServerStatus();
   const [roomCode, setRoomCode] = useState('');
   const [username, setUsername] = useState('');
   const [isJoining, setIsJoining] = useState(false);

@@ -8,11 +8,13 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import EmojiPicker from '../components/EmojiPicker';
 import LinkifyText from '../components/LinkifyText';
 import { API_URL } from '../config/api';
+import useServerStatus from '../hooks/useServerStatus';
 
 const Chat = () => {
   const { roomCode } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isServerDown } = useServerStatus();
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);

@@ -6,9 +6,11 @@ import { io } from 'socket.io-client';
 import ErrorNotification from '../components/ErrorNotification';
 import Tooltip from '../components/Tooltip';
 import { API_URL } from '../config/api';
+import useServerStatus from '../hooks/useServerStatus';
 
 const CreateRoom = () => {
   const navigate = useNavigate();
+  const { isServerDown } = useServerStatus();
   const [username, setUsername] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [isCreating, setIsCreating] = useState(false);
