@@ -225,7 +225,7 @@ const Home = () => {
             
             className="flex items-center space-x-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors text-xs"
           >
-            <span>Come funziona</span>
+            
             <FaInfo className="text-xs" />
 
           </button>
@@ -236,7 +236,7 @@ const Home = () => {
             className="flex items-center space-x-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors text-xs"
           >
             
-            <span>Perché</span>
+            
             <FaQuestion className="text-xs" />
           </button>
           </div>

@@ -25,7 +25,7 @@ const CreateRoom = () => {
     if (roomCode && !copied) {
       const timer = setTimeout(() => {
         setShowCopyReminder(true);
-      }, 3000);
+      }, 100);
       
       return () => clearTimeout(timer);
     } else if (copied) {
@@ -197,23 +197,23 @@ const CreateRoom = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
+            className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 text-center"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="mb-6"
+              className="mb-3"
             >
-              <div className="w-16 h-16 bg-linear-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-linear-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto">
                 <FaCheck className="text-2xl text-white" />
               </div>
-              <h2 className="text-xl font-bold text-white mb-2">Stanza Creata!</h2>
-              <p className="text-gray-400">Condividi questo codice con chi vuoi invitare</p>
+              <h2 className="text-xl font-bold text-white">Stanza Creata!</h2>
+              <p className="text-xs text-gray-400">Condividi questo codice con chi vuoi invitare</p>
             </motion.div>
 
-            <div className="bg-gray-900/50 rounded-xl p-4 mb-6">
-              <p className="text-sm text-gray-400 mb-2">Codice Stanza</p>
+          <div className="bg-gray-900/50 rounded-xl p-3 mb-2">
+              <p className="text-sm text-gray-400 mb-1">Codice Stanza</p>
               <div className="flex items-center justify-center space-x-3">
                 <span className="text-2xl font-mono font-bold text-purple-400 tracking-wider">
                   {roomCode}
@@ -228,12 +228,15 @@ const CreateRoom = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={copyToClipboard}
-                    className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
+                    className="p-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
                   >
                     {copied ? (
                       <FaCheck className="text-green-400" />
                     ) : (
+                      <span className="flex items-center justify-center space-x-2 text-gray-400">
+                        <p className="text-xs">Copia</p>
                       <FaCopy className="text-gray-400" />
+                      </span>
                     )}
                   </motion.button>
                 </Tooltip>
@@ -245,9 +248,9 @@ const CreateRoom = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-3 p-3 bg-orange-500/20 border border-orange-500/30 rounded-lg"
+                  className="mt-1.5 p-1.5 bg-orange-500/20 border border-orange-500/30 rounded-lg"
                 >
-                  <div className="flex items-center space-x-2 text-orange-300">
+                  <div className="flex items-center justify-center space-x-2 text-orange-300">
                     <FaExclamationTriangle className="text-sm" />
                     <span className="text-sm font-medium">
                       Ricorda di copiare il codice per condividerlo!

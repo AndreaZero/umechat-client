@@ -42,7 +42,7 @@ const EmojiPicker = ({ isOpen, onClose, onEmojiSelect }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.2 }}
-        className="md:w-dvw lg:w-1/3 absolute bottom-16 left-4 right-4 bg-gray-800 rounded-xl border border-gray-700 shadow-2xl z-50 max-h-64 overflow-hidden"
+        className="md:w-dvw lg:w-1/3 absolute bottom-16  right-4 bg-gray-800 rounded-xl border border-gray-700 shadow-2xl z-50 max-h-64 overflow-hidden"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-3 border-b border-gray-700">
