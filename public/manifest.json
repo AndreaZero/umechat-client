@@ -1,7 +1,7 @@
 {
   "name": "UME Chat",
   "short_name": "UME Chat",
-  "description": "Chat segrete che svaniscono - Solo write-read",
+  "description": "Chat segrete anonime e real-time.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
@@ -10,7 +10,7 @@
   "scope": "/",
   "lang": "it",
   "dir": "ltr",
-  "categories": ["social", "communication", "utilities"],
+  "categories": ["social", "communication", "utilities", "chat", "secret", "anonymous", "real-time"],
   "icons": [
     {
       "src": "/icon-192.png",

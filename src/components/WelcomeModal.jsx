@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaPlay, FaUsers, FaKey, FaComments, FaTimes, FaEyeSlash } from 'react-icons/fa';
 
-import logo from '../assets/logo.png';
-import video1 from '../assets/1.webm';
-import video2 from '../assets/2.webm';
-import video3 from '../assets/3.webm';
+import logo from '../assets/logo.webp';
+import { API_URL } from '../config/api';
+
+// Video URLs from server
+const video1 = `${API_URL}/videos/1.webm`;
+const video2 = `${API_URL}/videos/2.webm`;
+const video3 = `${API_URL}/videos/3.webm`;
 
 const WelcomeModal = ({ isOpen, onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const slides = [
     {
@@ -133,14 +137,24 @@ const WelcomeModal = ({ isOpen, onClose }) => {
                 className="relative w-full max-w-lg"
               >
                 <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden shadow-2xl">
-                  <video
-                    src={currentSlideData.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
+                  {!videoError ? (
+                    <video
+                      src={currentSlideData.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                      onError={() => setVideoError(true)}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-700">
+                      <div className="text-center text-gray-400">
+                        <FaPlay className="text-4xl mb-2 mx-auto" />
+                        <p className="text-sm">Video non disponibile</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
                 </div>
                 

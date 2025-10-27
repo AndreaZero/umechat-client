@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaSignInAlt, FaUser, FaKey } from 'react-icons/fa';
 import { io } from 'socket.io-client';
 import ErrorNotification from '../components/ErrorNotification';
+import { API_URL } from '../config/api';
 
 const JoinRoom = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const JoinRoom = () => {
     setError('');
     
     // Connessione Socket.IO
-    const newSocket = io('https://umechat-server.up.railway.app', {
+    const newSocket = io(API_URL, {
       timeout: 5000,
       forceNew: true
     });

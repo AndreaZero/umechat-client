@@ -7,6 +7,7 @@ import Avatar from '../components/Avatar';
 import ConfirmationModal from '../components/ConfirmationModal';
 import EmojiPicker from '../components/EmojiPicker';
 import LinkifyText from '../components/LinkifyText';
+import { API_URL } from '../config/api';
 
 const Chat = () => {
   const { roomCode } = useParams();
@@ -40,7 +41,7 @@ const Chat = () => {
     setIsHost(userIsHost || false);
 
     // Connessione Socket.IO
-    const newSocket = io('https://umechat-server.up.railway.app');
+    const newSocket = io(API_URL);
     setSocket(newSocket);
 
     newSocket.on('connect', () => {

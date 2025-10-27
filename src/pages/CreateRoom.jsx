@@ -5,6 +5,7 @@ import { FaArrowLeft, FaCopy, FaCheck, FaUser, FaLock, FaExclamationTriangle } f
 import { io } from 'socket.io-client';
 import ErrorNotification from '../components/ErrorNotification';
 import Tooltip from '../components/Tooltip';
+import { API_URL } from '../config/api';
 
 const CreateRoom = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const CreateRoom = () => {
     setError(null); // Clear previous errors
     
     // Connessione Socket.IO
-    const newSocket = io('https://umechat-server.up.railway.app', {
+    const newSocket = io(API_URL, {
       timeout: 5000,
       forceNew: true
     });

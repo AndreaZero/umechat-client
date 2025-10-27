@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaSignInAlt, FaShieldAlt, FaClock, FaEyeSlash, FaBolt, FaQuestionCircle, FaQuestion, FaTimes, FaInfo } from 'react-icons/fa';
 import WelcomeModal from '../components/WelcomeModal';
-import logo from '../assets/logo.png';
-import Tooltip from '../components/Tooltip';
-
+import logo from '../assets/logo.webp';
 
 const PercheSiModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -189,7 +187,7 @@ const Home = () => {
             className="w-full bg-linear-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center space-x-3"
           >
             <FaSignInAlt className="text-lg" />
-            <span>Entra in una Stanza</span>
+            <span>Ho un codice</span>
           </motion.button>
         </div>
           
