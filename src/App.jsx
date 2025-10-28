@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import CreateRoom from './pages/CreateRoom';
 import JoinRoom from './pages/JoinRoom';
 import Chat from './pages/Chat';
+import X33XStats from './pages/X33XStats';
 import ServerDown from './components/ServerDown';
 import NotFound from './components/NotFound';
 import useServerStatus from './hooks/useServerStatus';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/create" element={<CreateRoom />} />
             <Route path="/join" element={<JoinRoom />} />
             <Route path="/chat/:roomCode" element={<Chat />} />
+            <Route path="/x33x" element={<X33XStats />} />
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

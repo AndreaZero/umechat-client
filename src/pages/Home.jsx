@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaSignInAlt, FaShieldAlt, FaClock, FaEyeSlash, FaBolt, FaQuestionCircle, FaQuestion, FaTimes, FaInfo } from 'react-icons/fa';
 import WelcomeModal from '../components/WelcomeModal';
 import PWATutorialModal from '../components/PWATutorialModal';
+import VisitCounter from '../components/VisitCounter';
 import useDeviceDetection from '../hooks/useDeviceDetection';
 import logo from '../assets/logo.webp';
 
@@ -237,7 +238,10 @@ const Home = () => {
           className=" mt-6 flex items-center justify-between"
         >
           
-          <p className="text-xs text-gray-600">Sicuro • Anonimo • Gratuito</p>
+          <div className="flex items-center space-x-4">
+            <p className="text-xs text-gray-600">Sicuro • Anonimo • Gratuito</p>
+            <VisitCounter showDetails={true} />
+          </div>
           <div className="flex items-center space-x-2">
           <button
             onClick={() => setShowWelcomeModal(true)}
