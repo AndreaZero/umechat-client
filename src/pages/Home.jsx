@@ -240,7 +240,6 @@ const Home = () => {
           
           <div className="flex items-center space-x-4">
             <p className="text-xs text-gray-600">Sicuro • Anonimo • Gratuito</p>
-            <VisitCounter showDetails={true} />
           </div>
           <div className="flex items-center space-x-2">
           <button
