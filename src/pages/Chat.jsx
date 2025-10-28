@@ -365,15 +365,15 @@ const Chat = () => {
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               className={`flex ${group.username === username ? 'justify-end' : 'justify-start'} mb-1`}
             >
-              <div className={`flex items-start space-x-1 max-w-xs lg:max-w-sm ${
+              <div className={`flex items-start space-x-1 ${
                 group.username === username ? 'flex-row-reverse space-x-reverse' : ''
               }`}>
                 {/* Container messaggi del gruppo */}
-                <div className="flex flex-col space-y-0.5">
+                <div className="flex flex-col space-y-0.5 max-w-xs lg:max-w-sm">
                   {group.messages.map((message, messageIndex) => (
                     <div
                       key={message.id}
-                      className={`px-3 py-3 rounded-lg shadow-sm ${
+                      className={`px-3 py-3 rounded-lg shadow-sm w-fit max-w-full ${
                         group.username === username 
                           ? 'bg-gray-900 text-white' 
                           : 'bg-gray-700 text-gray-100'

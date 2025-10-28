@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaExternalLinkAlt, FaLink } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import MediaPreview from './MediaPreview';
 
 const LinkifyText = ({ text }) => {
   // Regex per identificare URL
@@ -28,7 +29,16 @@ const LinkifyText = ({ text }) => {
     if (url.includes('github.com')) return 'github';
     if (url.includes('discord.com') || url.includes('discord.gg')) return 'discord';
     if (url.includes('reddit.com')) return 'reddit';
+    if (url.includes('tiktok.com')) return 'tiktok';
+    if (url.includes('spotify.com')) return 'spotify';
+    if (url.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)(\?.*)?$/i)) return 'image';
     return 'generic';
+  };
+
+  // Funzione per verificare se un URL è un media
+  const isMediaUrl = (url) => {
+    const linkType = getLinkType(url);
+    return linkType === 'youtube' || linkType === 'image';
   };
 
   // Funzione per ottenere l'icona del link
@@ -47,6 +57,12 @@ const LinkifyText = ({ text }) => {
         return '💬';
       case 'reddit':
         return '🔴';
+      case 'tiktok':
+        return '🎵';
+      case 'spotify':
+        return '🎵';
+      case 'image':
+        return '🖼️';
       default:
         return '🔗';
     }
@@ -55,10 +71,29 @@ const LinkifyText = ({ text }) => {
   // Dividi il testo in parti (testo normale e link)
   const parts = text.split(urlRegex);
   
+  // Separare media e testo
+  const mediaParts = [];
+  const textParts = [];
+  
+  parts.forEach((part, index) => {
+    if (urlRegex.test(part) && isMediaUrl(part)) {
+      mediaParts.push({ part, index });
+    } else {
+      textParts.push({ part, index });
+    }
+  });
+
   return (
     <>
-      {parts.map((part, index) => {
-        // Se la parte è un URL, renderizza come link cliccabile
+      {/* Renderizza prima tutti i media */}
+      {mediaParts.map(({ part, index }) => (
+        <div key={`media-${index}`} className="block w-full">
+          <MediaPreview url={part} />
+        </div>
+      ))}
+      
+      {/* Poi renderizza il testo e i link normali */}
+      {textParts.map(({ part, index }) => {
         if (urlRegex.test(part)) {
           const domain = getDomain(part);
           const icon = getLinkIcon(part);
@@ -67,7 +102,7 @@ const LinkifyText = ({ text }) => {
             <button
               key={index}
               onClick={() => handleLinkClick(part)}
-              className="inline-flex items-center space-x-1 px-2 py-1 mx-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 hover:text-blue-200 rounded-md border border-blue-500/30 hover:border-blue-400/50 transition-all duration-200 cursor-pointer group"
+              className="inline-flex items-center space-x-1 px-2 py-1 mx-1 rounded-md border transition-all duration-200 cursor-pointer group bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 hover:text-blue-200 border-blue-500/30 hover:border-blue-400/50"
               title={`Apri ${part}`}
             >
               <span className="text-sm">{icon}</span>
@@ -78,7 +113,6 @@ const LinkifyText = ({ text }) => {
             </button>
           );
         }
-        // Altrimenti renderizza come testo normale
         return part;
       })}
     </>

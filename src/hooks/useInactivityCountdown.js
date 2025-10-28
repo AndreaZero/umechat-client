@@ -6,7 +6,7 @@ const useInactivityCountdown = (socket, isConnected) => {
   const countdownIntervalRef = useRef(null);
   const lastActivityRef = useRef(Date.now());
   const inactivityCheckRef = useRef(null);
-  const serverTimeoutRef = useRef(null);
+  const serverTimeoutRef = useRef(15 * 60 * 1000); // Default 15 minuti
 
   // Funzione per aggiornare l'attività
   const updateActivity = () => {
@@ -54,12 +54,13 @@ const useInactivityCountdown = (socket, isConnected) => {
     const checkInactivity = () => {
       const now = Date.now();
       const timeSinceActivity = now - lastActivityRef.current;
+      const threshold = serverTimeoutRef.current - 10 * 1000; // 10 secondi prima del timeout
       
-      console.log(`Checking inactivity: ${timeSinceActivity}ms since last activity (threshold: 5000ms)`);
+      console.log(`Checking inactivity: ${timeSinceActivity}ms since last activity (threshold: ${threshold}ms, server timeout: ${serverTimeoutRef.current}ms)`);
       
-      // Se sono passati 5 secondi (15 - 10 = 5), avvia il countdown
-      if (timeSinceActivity >= 5000 && !showCountdown) {
-        console.log('Starting countdown - 5 seconds of inactivity detected');
+      // Se siamo vicini al timeout del server, avvia il countdown
+      if (timeSinceActivity >= threshold && !showCountdown) {
+        console.log(`Starting countdown - ${Math.round(threshold / 1000)} seconds of inactivity detected`);
         startCountdown();
       }
     };
@@ -84,7 +85,9 @@ const useInactivityCountdown = (socket, isConnected) => {
       const handleHeartbeatAck = (data) => {
         // Aggiorna l'attività con il timestamp del server
         lastActivityRef.current = data.timestamp;
-        console.log('Heartbeat ACK received, activity updated');
+        // Aggiorna il timeout del server
+        serverTimeoutRef.current = data.inactivityTimeout;
+        console.log('Heartbeat ACK received, activity updated, server timeout:', data.inactivityTimeout);
       };
       
       // Ascolta eventi di attività
