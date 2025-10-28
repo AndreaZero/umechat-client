@@ -115,19 +115,7 @@ const PWATutorialModal = ({ isOpen, onClose, deviceType }) => {
 
           {/* Content */}
           <div className="flex-1 flex flex-col overflow-hidden">
-            {/* Device Info */}
-            <div className="p-4 lg:p-6 bg-gray-800/30 border-b border-gray-700">
-              <div className="flex items-center space-x-3 mb-3">
-                <FaMobile className="text-purple-400 text-xl" />
-                <h3 className="text-lg font-semibold text-white">
-                  {deviceType === 'ios' ? 'iPhone/iPad' : 'Android'}
-                </h3>
-              </div>
-              <p className="text-gray-300 text-sm">
-                Segui questi semplici passaggi per installare UME Chat come app nativa sul tuo dispositivo.
-                Avrai accesso rapido e un'esperienza ottimizzata.
-              </p>
-            </div>
+           
 
             {/* Step Content */}
             <div className="flex-1 p-4 lg:p-6 flex flex-col">

@@ -253,17 +253,6 @@ const Home = () => {
           >
             <FaQuestion className="text-xs" />
           </button>
-          
-          {/* Pulsante di test per il tutorial PWA (solo per sviluppo) */}
-          {process.env.NODE_ENV === 'development' && (
-            <button
-              title="Test PWA Tutorial"
-              onClick={() => setShowPWATutorial(true)}
-              className="flex items-center space-x-1 px-3 py-1 bg-purple-700 hover:bg-purple-600 text-gray-300 rounded-lg transition-colors text-xs"
-            >
-              <span className="text-xs">PWA</span>
-            </button>
-          )}
           </div>
         </motion.div>
         </motion.div>
