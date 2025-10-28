@@ -25,37 +25,29 @@ const useVisitTracking = () => {
           
           if (isLocalhost) {
             // Per localhost, usa ipinfo.io che ha meno restrizioni CORS
-            console.log('🌐 Localhost detected, using ipinfo.io...');
             const response = await fetch('https://ipinfo.io/json');
             data = await response.json();
-            console.log('ipinfo.io Response:', data);
           } else {
             // Per produzione, usa ipapi.co
             const response = await fetch('https://ipapi.co/json/');
             data = await response.json();
-            console.log('ipapi.co Response:', data);
 
             // Se l'IP è IPv6, prova a ottenere IPv4
             if (data.ip && data.ip.includes(':')) {
-              console.log('IPv6 detected, trying to get IPv4...');
               try {
                 const ipv4Response = await fetch('https://ipapi.co/ip/');
                 const ipv4 = await ipv4Response.text();
                 if (ipv4 && !ipv4.includes(':')) {
                   data.ip = ipv4.trim();
-                  console.log('IPv4 obtained:', data.ip);
                 }
               } catch (ipv4Error) {
-                console.log('Could not get IPv4:', ipv4Error);
               }
             }
           }
         } catch (error) {
-          console.log('Primary API failed, trying fallback...');
           // Fallback API
           const fallbackResponse = await fetch('https://ipinfo.io/json');
           data = await fallbackResponse.json();
-          console.log('Fallback API Response:', data);
         }
         
         // Determina il tipo di dispositivo direttamente qui
@@ -75,9 +67,6 @@ const useVisitTracking = () => {
           deviceType = 'desktop';
         }
         
-        console.log('User Agent:', userAgent); // Debug
-        console.log('Detected Device Type:', deviceType); // Debug
-
         // Preferisci IPv4 se disponibile, altrimenti usa quello che abbiamo
         let ipAddress = data.ip || 'Unknown';
         
@@ -100,7 +89,6 @@ const useVisitTracking = () => {
           isNewDay: isNewDay
         };
         
-        console.log('Final Visit Info:', visitInfo); // Debug completo
         
         // Aggiorna il contatore locale
         if (isNewDay) {
@@ -117,8 +105,6 @@ const useVisitTracking = () => {
         
         // Opzionalmente invia al server (se implementato)
         try {
-          console.log('📤 Sending visit data to server:', visitInfo);
-          console.log('🌐 API URL:', API_URL);
           
           const response = await fetch(`${API_URL}/api/track-visit`, {
             method: 'POST',
@@ -128,24 +114,17 @@ const useVisitTracking = () => {
             body: JSON.stringify(visitInfo)
           });
           
-          console.log('📡 Response status:', response.status);
-          console.log('📡 Response ok:', response.ok);
           
           if (response.ok) {
             const result = await response.json();
-            console.log('✅ Visit tracked successfully:', result);
           } else {
             const errorText = await response.text();
-            console.log('❌ Server response not ok:', response.status, errorText);
           }
         } catch (serverError) {
           // Il server potrebbe non essere configurato, non è un errore critico
-          console.log('❌ Server tracking non disponibile:', serverError.message);
-          console.log('🔍 Error details:', serverError);
         }
         
       } catch (error) {
-        console.error('Errore nel tracking visite:', error);
         setError(error.message);
         
         // Fallback: almeno conta le visite localmente
