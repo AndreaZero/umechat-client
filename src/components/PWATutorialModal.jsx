@@ -115,8 +115,7 @@ const PWATutorialModal = ({ isOpen, onClose, deviceType }) => {
 
           {/* Content */}
           <div className="flex-1 flex flex-col overflow-hidden">
-           
-
+          
             {/* Step Content */}
             <div className="flex-1 p-4 lg:p-6 flex flex-col">
               <motion.div
