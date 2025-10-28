@@ -242,10 +242,6 @@ const Home = () => {
           className=" mt-6 flex items-center justify-between"
         >
           
-          <div className="flex items-center space-x-4">
-            <p className="text-xs text-gray-600">Sicuro • Anonimo • Gratuito</p>
-            <VisitCounter showDetails={true} />
-          </div>
           <div className="flex items-center space-x-2">
           <button
             onClick={() => setShowWelcomeModal(true)}
