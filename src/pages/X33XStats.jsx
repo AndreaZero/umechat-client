@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaEye, FaGlobe, FaCalendarDay, FaCalendarWeek, FaTimes, FaChartBar, FaMobile, FaDesktop, FaTabletAlt, FaShieldAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaEye, FaGlobe, FaCalendarDay, FaCalendarWeek, FaTimes, FaChartBar, FaMobile, FaDesktop, FaTabletAlt, FaShieldAlt, FaSignOutAlt, FaComments, FaUsers, FaHome } from 'react-icons/fa';
 import { API_URL } from '../config/api';
 import AuthModal from '../components/AuthModal';
 
@@ -194,6 +194,41 @@ const X33XStats = () => {
                   <h3 className="font-semibold text-white">Questa Settimana</h3>
                 </div>
                 <p className="text-3xl font-bold text-purple-400">{stats.visitsThisWeek}</p>
+              </div>
+            </div>
+
+            {/* Statistiche Stanze e Messaggi */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FaHome className="text-orange-400 text-xl" />
+                  <h3 className="font-semibold text-white">Stanze Create</h3>
+                </div>
+                <p className="text-3xl font-bold text-orange-400">{stats.totalRoomsCreated || 0}</p>
+              </div>
+              
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FaUsers className="text-cyan-400 text-xl" />
+                  <h3 className="font-semibold text-white">Stanze Attive</h3>
+                </div>
+                <p className="text-3xl font-bold text-cyan-400">{stats.activeRooms || 0}</p>
+              </div>
+              
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FaComments className="text-pink-400 text-xl" />
+                  <h3 className="font-semibold text-white">Messaggi Totali</h3>
+                </div>
+                <p className="text-3xl font-bold text-pink-400">{stats.totalMessagesSent || 0}</p>
+              </div>
+              
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FaUsers className="text-indigo-400 text-xl" />
+                  <h3 className="font-semibold text-white">Utenti Online</h3>
+                </div>
+                <p className="text-3xl font-bold text-indigo-400">{stats.totalUsersInRooms || 0}</p>
               </div>
             </div>
 
