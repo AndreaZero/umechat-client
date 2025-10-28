@@ -6,6 +6,7 @@ import WelcomeModal from '../components/WelcomeModal';
 import PWATutorialModal from '../components/PWATutorialModal';
 import VisitCounter from '../components/VisitCounter';
 import useDeviceDetection from '../hooks/useDeviceDetection';
+import useVisitTracking from '../hooks/useVisitTracking';
 import logo from '../assets/logo.webp';
 
 const PercheSiModal = ({ isOpen, onClose }) => {
@@ -98,6 +99,9 @@ const Home = () => {
   const [showPercheSiModal, setShowPercheSiModal] = useState(false);
   const [showPWATutorial, setShowPWATutorial] = useState(false);
   const { isMobile, isIOS, isAndroid, canInstallPWA } = useDeviceDetection();
+  
+  // Traccia le visite quando l'utente arriva sulla pagina
+  useVisitTracking();
   
   useEffect(() => {
     // Controlla se l'utente ha già visto la guida
@@ -240,6 +244,7 @@ const Home = () => {
           
           <div className="flex items-center space-x-4">
             <p className="text-xs text-gray-600">Sicuro • Anonimo • Gratuito</p>
+            <VisitCounter showDetails={true} />
           </div>
           <div className="flex items-center space-x-2">
           <button

@@ -105,6 +105,8 @@ const useVisitTracking = () => {
         // Opzionalmente invia al server (se implementato)
         try {
           console.log('📤 Sending visit data to server:', visitInfo);
+          console.log('🌐 API URL:', API_URL);
+          
           const response = await fetch(`${API_URL}/api/track-visit`, {
             method: 'POST',
             headers: {
@@ -113,15 +115,20 @@ const useVisitTracking = () => {
             body: JSON.stringify(visitInfo)
           });
           
+          console.log('📡 Response status:', response.status);
+          console.log('📡 Response ok:', response.ok);
+          
           if (response.ok) {
             const result = await response.json();
             console.log('✅ Visit tracked successfully:', result);
           } else {
-            console.log('❌ Server response not ok:', response.status);
+            const errorText = await response.text();
+            console.log('❌ Server response not ok:', response.status, errorText);
           }
         } catch (serverError) {
           // Il server potrebbe non essere configurato, non è un errore critico
           console.log('❌ Server tracking non disponibile:', serverError.message);
+          console.log('🔍 Error details:', serverError);
         }
         
       } catch (error) {
