@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaSignInAlt, FaShieldAlt, FaClock, FaEyeSlash, FaBolt, FaQuestionCircle, FaQuestion, FaTimes, FaInfo } from 'react-icons/fa';
 import WelcomeModal from '../components/WelcomeModal';
+import PWATutorialModal from '../components/PWATutorialModal';
+import useDeviceDetection from '../hooks/useDeviceDetection';
 import logo from '../assets/logo.webp';
 
 const PercheSiModal = ({ isOpen, onClose }) => {
@@ -93,6 +95,8 @@ const Home = () => {
   const navigate = useNavigate();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showPercheSiModal, setShowPercheSiModal] = useState(false);
+  const [showPWATutorial, setShowPWATutorial] = useState(false);
+  const { isMobile, isIOS, isAndroid, canInstallPWA } = useDeviceDetection();
   
   useEffect(() => {
     // Controlla se l'utente ha già visto la guida
@@ -101,6 +105,21 @@ const Home = () => {
       setShowWelcomeModal(true);
     }
   }, []);
+
+  // Gestisce la chiusura del welcome modal e mostra il tutorial PWA se necessario
+  const handleWelcomeModalClose = () => {
+    setShowWelcomeModal(false);
+    
+    // Se è un dispositivo mobile e può installare PWA, mostra il tutorial dopo un breve delay
+    if (canInstallPWA) {
+      const hasSeenPWATutorial = localStorage.getItem('ume-pwa-tutorial-shown');
+      if (!hasSeenPWATutorial) {
+        setTimeout(() => {
+          setShowPWATutorial(true);
+        }, 500); // Piccolo delay per una transizione più fluida
+      }
+    }
+  };
   
   /// il tasto "perche" apre un modal al click sul bottone
   /// e si chiude cliccando fuori dal modal
@@ -222,12 +241,9 @@ const Home = () => {
           <div className="flex items-center space-x-2">
           <button
             onClick={() => setShowWelcomeModal(true)}
-            
             className="flex items-center space-x-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors text-xs"
           >
-            
             <FaInfo className="text-xs" />
-
           </button>
 
           <button
@@ -235,10 +251,19 @@ const Home = () => {
             onClick={() => handleShowPercheSiModal()}
             className="flex items-center space-x-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors text-xs"
           >
-            
-            
             <FaQuestion className="text-xs" />
           </button>
+          
+          {/* Pulsante di test per il tutorial PWA (solo per sviluppo) */}
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              title="Test PWA Tutorial"
+              onClick={() => setShowPWATutorial(true)}
+              className="flex items-center space-x-1 px-3 py-1 bg-purple-700 hover:bg-purple-600 text-gray-300 rounded-lg transition-colors text-xs"
+            >
+              <span className="text-xs">PWA</span>
+            </button>
+          )}
           </div>
         </motion.div>
         </motion.div>
@@ -247,14 +272,21 @@ const Home = () => {
       {/* Welcome Modal */}
       <WelcomeModal 
         isOpen={showWelcomeModal} 
-        onClose={() => setShowWelcomeModal(false)} 
+        onClose={handleWelcomeModalClose} 
       />
       <PercheSiModal
         isOpen={showPercheSiModal}
         onClose={handleClosePercheSiModal}
+      />
+      {/* PWA Tutorial Modal */}
+      <PWATutorialModal
+        isOpen={showPWATutorial}
+        onClose={() => setShowPWATutorial(false)}
+        deviceType={isIOS ? 'ios' : 'android'}
       />
     </div>
   );
 };
 
 export default Home;
+

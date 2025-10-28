@@ -42,3 +42,10 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
+
+// Gestisce l'installazione dell'app come PWA
+self.addEventListener('beforeinstallprompt', (event) => {
+  // Previene il prompt automatico di installazione
+  event.preventDefault();
+  // L'evento può essere utilizzato per mostrare un prompt personalizzato
+});
