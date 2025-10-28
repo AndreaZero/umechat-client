@@ -20,26 +20,38 @@ const useVisitTracking = () => {
         // Ottieni IP e dati geografici - prova prima ipapi.co, poi fallback
         let data;
         try {
-          const response = await fetch('https://ipapi.co/json/');
-          data = await response.json();
-          console.log('ipapi.co Response:', data);
+          // Per localhost, usa un'API che supporta CORS o un fallback
+          const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
           
-          // Se l'IP è IPv6, prova a ottenere IPv4
-          if (data.ip && data.ip.includes(':')) {
-            console.log('IPv6 detected, trying to get IPv4...');
-            try {
-              const ipv4Response = await fetch('https://ipapi.co/ip/');
-              const ipv4 = await ipv4Response.text();
-              if (ipv4 && !ipv4.includes(':')) {
-                data.ip = ipv4.trim();
-                console.log('IPv4 obtained:', data.ip);
+          if (isLocalhost) {
+            // Per localhost, usa ipinfo.io che ha meno restrizioni CORS
+            console.log('🌐 Localhost detected, using ipinfo.io...');
+            const response = await fetch('https://ipinfo.io/json');
+            data = await response.json();
+            console.log('ipinfo.io Response:', data);
+          } else {
+            // Per produzione, usa ipapi.co
+            const response = await fetch('https://ipapi.co/json/');
+            data = await response.json();
+            console.log('ipapi.co Response:', data);
+
+            // Se l'IP è IPv6, prova a ottenere IPv4
+            if (data.ip && data.ip.includes(':')) {
+              console.log('IPv6 detected, trying to get IPv4...');
+              try {
+                const ipv4Response = await fetch('https://ipapi.co/ip/');
+                const ipv4 = await ipv4Response.text();
+                if (ipv4 && !ipv4.includes(':')) {
+                  data.ip = ipv4.trim();
+                  console.log('IPv4 obtained:', data.ip);
+                }
+              } catch (ipv4Error) {
+                console.log('Could not get IPv4:', ipv4Error);
               }
-            } catch (ipv4Error) {
-              console.log('Could not get IPv4:', ipv4Error);
             }
           }
         } catch (error) {
-          console.log('ipapi.co failed, trying fallback...');
+          console.log('Primary API failed, trying fallback...');
           // Fallback API
           const fallbackResponse = await fetch('https://ipinfo.io/json');
           data = await fallbackResponse.json();
@@ -65,7 +77,6 @@ const useVisitTracking = () => {
         
         console.log('User Agent:', userAgent); // Debug
         console.log('Detected Device Type:', deviceType); // Debug
-        console.log('Final Visit Info:', visitInfo); // Debug completo
 
         // Preferisci IPv4 se disponibile, altrimenti usa quello che abbiamo
         let ipAddress = data.ip || 'Unknown';
@@ -88,6 +99,8 @@ const useVisitTracking = () => {
           deviceType: deviceType,
           isNewDay: isNewDay
         };
+        
+        console.log('Final Visit Info:', visitInfo); // Debug completo
         
         // Aggiorna il contatore locale
         if (isNewDay) {
