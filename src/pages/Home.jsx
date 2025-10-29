@@ -7,7 +7,7 @@ import PWATutorialModal from '../components/PWATutorialModal';
 import VisitCounter from '../components/VisitCounter';
 import useDeviceDetection from '../hooks/useDeviceDetection';
 import useVisitTracking from '../hooks/useVisitTracking';
-import logo from '../assets/logo.webp';
+import logo from '../assets/icon.png';
 
 const PercheSiModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -166,7 +166,7 @@ const Home = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <img src={logo} alt="UME" className="w-1/8 mx-auto rounded-lg object-contain" />
-          <p className="text-gray-400 text-base font-light mb-4">
+          <p className="text-gray-400 text-base font-light ">
             UME Chat - dev by AndreaZero
           </p>
           
@@ -175,9 +175,9 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-gray-800/40 backdrop-blur-sm rounded-xl p-4 mb-6 text-sm text-gray-300"
+            className="rounded-xl p-4 mb-2 text-sm text-center text-gray-300"
           >
-            <div className="text-left space-y-2 text-xs leading-relaxed">
+            <div className="space-y-2 text-xs leading-relaxed">
               <p>• Crea o entra in una stanza tramite un codice unico.</p>
               <p>• I messaggi non sono mai salvati e svaniscono quando esci dalla stanza.</p>
               <p>• Chatta con chi hai bisogno, senza nessun controllo.</p>
@@ -187,7 +187,7 @@ const Home = () => {
           </motion.div>
 
               {/* Action Buttons */}
-        <div className="flex items-center justify-center space-x-4 mb-4">
+        <div className="flex items-center flex-col w-full justify-center space-y-2 mb-4">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -195,7 +195,7 @@ const Home = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/create')}
-            className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg glow-effect transition-all duration-300 flex items-center justify-center space-x-3"
+            className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold p-2 rounded-lg shadow-lg glow-effect transition-all duration-300 flex items-center justify-center space-x-2"
           >
             <FaPlus className="text-lg" />
             <span>Crea Stanza</span>
@@ -208,7 +208,7 @@ const Home = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/join')}
-            className="w-full bg-linear-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center space-x-3"
+            className="w-full bg-linear-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white font-semibold p-2 rounded-lg shadow-lg transition-all duration-300 flex items-center justify-center space-x-2"
           >
             <FaSignInAlt className="text-lg" />
             <span>Ho un codice</span>
@@ -239,11 +239,9 @@ const Home = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className=" mt-6 flex items-center justify-between"
+          className=" mt-4 flex w-full items-center justify-between"
         >
-          
-          <div className="flex items-center space-x-2">
-          <button
+                    <button
             onClick={() => setShowWelcomeModal(true)}
             className="flex items-center space-x-1 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors text-xs"
           >
@@ -257,7 +255,6 @@ const Home = () => {
           >
             <FaQuestion className="text-xs" />
           </button>
-          </div>
         </motion.div>
         </motion.div>
       </div>
