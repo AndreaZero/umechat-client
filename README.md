@@ -19,13 +19,6 @@ Questa è la parte client dell'applicazione UmeChat, costruita con React, Vite e
 - **Framer Motion**
 - **React Router 7**
 
-## Configurazione per Replit
-
-Il progetto è configurato per funzionare nell'ambiente Replit:
-- Porta: `5000`
-- Host: `0.0.0.0`
-- Configurazione Vite aggiornata per supportare il proxy di Replit (`allowedHosts: true`).
-
 ## Sviluppo Locale
 
 Per eseguire il progetto localmente:
